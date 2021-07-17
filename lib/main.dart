@@ -1,8 +1,8 @@
-
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import 'package:vaint_service/src/pagina_inicio.dart';
+import 'package:vaint_service/src/drawer_options.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tensor Flow',
+      // routes: <String, WidgetBuilder>{
+      //   '/pagina_inicio': (BuildContext context) => new _
+      // },
       home: Home(),
     );
   }
@@ -28,76 +31,85 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bienvenidos a la App de Vaint Service'),
+        title:
+        Text('Bienvenidos a la App de Vaint Service',
+            style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black)),
         actions: [
-          IconButton(onPressed: _beginSession,icon: Icon(Icons.login), tooltip: 'Iniciar Sesión'),
-          IconButton(onPressed: _registerSession,icon: Icon(Icons.app_registration_sharp),  tooltip: 'Registrarse'),
+          IconButton(
+              onPressed: _beginSession,
+              icon: Icon(Icons.login),
+              tooltip: 'Iniciar Sesión'),
+          IconButton(
+              onPressed: _registerSession,
+              icon: Icon(Icons.app_registration_sharp),
+              tooltip: 'Registrarse'),
         ],
       ),
       body: Card(
         child: Center(
           child: Column(
             children: <Widget>[
-              Image.asset('assets/Vs.png'),
-              MaterialButton(
+              SizedBox(height: 70.0),
+              Flexible(child: Image.asset('assets/Vs.png')),
+              Flexible(
+                  child: MaterialButton(
                 minWidth: 200.0,
                 height: 40.0,
-                onPressed: (){
+                onPressed: () {
                   _beginSession();
                 },
                 color: Colors.lightBlue,
-                child: Text('Iniciar Sesión', style: TextStyle(color: Colors.white)),
-              ),
-              Container(
-                margin: EdgeInsets.all(50.0),
-                child: MaterialButton(
-                  minWidth: 200.0,
-                  height: 40.0,
-                  onPressed: () {
-                    _registerSession();
-                  },
-                  color: Colors.lightBlue,
-                  child: Text('Registrarse',
-                      style: TextStyle(color: Colors.white)),
+                child: Text('Iniciar Sesión',
+                    style: TextStyle(color: Colors.white)),
+              )),
+              Flexible(
+                child: Container(
+                  margin: EdgeInsets.all(50.0),
+                  child: MaterialButton(
+                    minWidth: 200.0,
+                    height: 40.0,
+                    onPressed: () {
+                      _registerSession();
+                    },
+                    color: Colors.lightBlue,
+                    child: Text('Registrarse',
+                        style: TextStyle(color: Colors.white)),
+                  ),
                 ),
-              ),
-
+              )
             ],
           ),
         ),
       ),
     );
   }
+
   void _beginSession() {
-    Navigator.of(context).push(
-        MaterialPageRoute<void>(
-            builder: (BuildContext context){
-              return Scaffold(
-                appBar: AppBar(
-                  title: Text('Iniciando Sesión'),
-                ),
-                body: _LoginForm()
-              );
-            }
-        )
-    );
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text('Iniciando Sesión'),
+          ),
+          body: _LoginForm());
+    }));
   }
 
   void _registerSession() {
-    Navigator.of(context).push(
-        MaterialPageRoute<void>(
-            builder: (BuildContext context){
-              return Scaffold(
-                  appBar: AppBar(
-                    title: Text('Registrándose'),
-                  ),
-                  body: _RegisterForm()
-              );
-            }
-        )
-    );
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text('Registrándose'),
+          ),
+          body: _RegisterForm());
+    }));
   }
 }
+
 class _LoginForm extends StatefulWidget {
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -109,82 +121,82 @@ class _LoginFormState extends State<_LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-        child: Column(
-          children: <Widget>[
-            Image.asset('assets/Vs.png'),
-            Container(
-              child: Text("Nombre de Usuario"),
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 70.0),
+          Flexible(
+            child: Image.asset('assets/Vs.png'),
+          ),
+          SizedBox(height: 15.0),
+          Flexible(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    cursorColor: Colors.black26,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: "Nombre de Usuario",
+                        icon: Icon(Icons.person)))),
+          ),
+          SizedBox(height: 20.0),
+          Flexible(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    cursorColor: Colors.black26,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '';
+                      }
+                    },
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                        labelText: "Contraseña", icon: Icon(Icons.lock)))),
+          ),
+          SizedBox(
+            height: 70.0,
+          ),
+          RaisedButton(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+              child: Text("Iniciar Sesión",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black)),
             ),
-            Padding(
-                padding: EdgeInsets.all(10),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: new BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                        padding: EdgeInsets.only(left: 10, right: 15, top: 1),
-                        child: TextFormField(
-                          cursorColor: Colors.black26,
-                            validator: (value){
-                              if(value!.isEmpty){
-                                return "Por favor ingrese su nombre de usuario";
-                              }
-                            },
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                            )
-                        )
-                    )
-                )
-            ),
-            Container(
-              child: Text("Contraseña"),
-            ),
-            Padding(
-                padding: EdgeInsets.all(10),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: new BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                        padding: EdgeInsets.only(left: 10, right: 15, top: 1),
-                        child: TextFormField(
-                            obscureText: true,
-                            cursorColor: Colors.black26,
-                            validator: (value){
-                              if(value!.isEmpty){
-                                return "Por favor ingrese su contraseña";
-                              }
-                            },
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                            )
-                        )
-                    )
-                )
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: RaisedButton(
-                color: Colors.white,
-                textColor: Colors.black,
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Scaffold.of(context).showSnackBar(SnackBar(content: Text('Processing Data')));
-
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 10.0,
+            color: Colors.lightBlueAccent,
+            textColor: Colors.black,
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text('Registro Exitoso')));
+                Navigator.of(context).push(MaterialPageRoute<Null>(
+                  builder: (BuildContext context){
+                    return new DrawerPage();
                   }
-                },
-                child: Text('Entrar'),
-              ),
-            ),
-          ],
-        ),
+                ));
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
-class _RegisterForm extends StatefulWidget{
+
+class _RegisterForm extends StatefulWidget {
   @override
   __RegisterFormState createState() => __RegisterFormState();
 }
@@ -196,161 +208,121 @@ class __RegisterFormState extends State<_RegisterForm> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset('assets/Vs.png'),
-          Container(
-            child: Text("Nombre de Usuario"),
+          Flexible(
+            child: Image.asset('assets/Vs.png'),
           ),
-          Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: new BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 15, top: 1),
-                      child: TextFormField(
-                          cursorColor: Colors.black26,
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return "Por favor ingrese su nombre de usuario";
-                            }
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                              icon: Icon(Icons.person)
-                          )
-                      )
-                  )
-              )
+          SizedBox(
+            height: 15.0,
           ),
-          Container(
-            child: Text("Correo Electrónico"),
+          Flexible(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    cursorColor: Colors.black26,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: "Nombre de Usuario",
+                        icon: Icon(Icons.person)))),
           ),
-          Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: new BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 15, top: 1),
-                      child: TextFormField(
-                          cursorColor: Colors.black26,
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return "Por favor ingrese su correo electrónico";
-                            }
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                              icon: Icon(Icons.email)
-                          )
-                      )
-                  )
-              )
+          SizedBox(
+            height: 14.0,
           ),
-          Container(
-            child: Text("Contraseña"),
+          Flexible(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    cursorColor: Colors.black26,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: "Correo Electrónico",
+                        icon: Icon(Icons.email)))),
           ),
-          Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: new BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 15, top: 1),
-                      child: TextFormField(
-
-                          cursorColor: Colors.black26,
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return "Por favor ingrese su contraseña";
-                            }
-                          },
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(Icons.password)
-                          )
-                      )
-                  )
-              )
+          SizedBox(
+            height: 20.0,
           ),
-          Container(
-            child: Text("Confirmar Contraseña"),
+          Flexible(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    cursorColor: Colors.black26,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '';
+                      }
+                    },
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                        labelText: "Contraseña", icon: Icon(Icons.lock)))),
           ),
-          Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: new BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 15, top: 1),
-                      child: TextFormField(
-                        obscureText: true,
-                          cursorColor: Colors.black26,
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return "Por favor confirme su contraseña";
-                            }
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                              icon: Icon(Icons.password)
-                          )
-                      )
-                  )
-              )
+          SizedBox(
+            height: 20.0,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              color: Colors.white,
-              textColor: Colors.black,
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context){
-                            return Scaffold(
-                                appBar: AppBar(
-                                  title: Text('Iniciando Sesión'),
-                                ),
-                                body: _LoginForm()
-                            );
-                          }
-                      )
-                  );
-                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Registro Exitoso')));
-                }
-              },
-              child: Text('Registrarse'),
+          Flexible(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.0),
+                child: TextFormField(
+                  obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    cursorColor: Colors.black26,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return '';
+                      }
+                    },
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                        labelText: "Confirme su contraseña",
+                        icon: Icon(Icons.lock)))),
+          ),
+          SizedBox(
+            height: 30.0,
+          ),
+          RaisedButton(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+              child: Text("Registrarse",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black)),
             ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 10.0,
+            color: Colors.lightBlueAccent,
+            textColor: Colors.black,
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                Navigator.of(context).push(
+                    MaterialPageRoute<void>(builder: (BuildContext context) {
+                  return Scaffold(
+                      appBar: AppBar(
+                        title: Text('Registrarse'),
+                      ),
+                      body: _LoginForm());
+                }));
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text('Registro Exitoso')));
+              }
+            },
           ),
         ],
       ),
     );
   }
 }
-
-class _Terminos extends StatefulWidget {
-  const _Terminos({Key? key}) : super(key: key);
-
-  @override
-  __TerminosState createState() => __TerminosState();
-}
-
-class __TerminosState extends State<_Terminos> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
