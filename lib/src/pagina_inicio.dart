@@ -63,7 +63,7 @@ class _ContentPageState extends State<ContentPage> {
                 ]
               ),
               alignment: Alignment.center,
-              child: Text("Lista de Restaurantes Disponibles",
+              child: Text("Inicio",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight:  FontWeight.bold,

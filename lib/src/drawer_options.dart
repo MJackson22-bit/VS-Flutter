@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vaint_service/src/restaurant.dart';
+import 'package:flutter/services.dart';
+import 'package:vaint_service/other/about_app.dart';
+import 'package:vaint_service/preferences/user_preferences.dart';
 import 'package:vaint_service/src/pagina_inicio.dart';
+import 'package:vaint_service/ui_user/user_page.dart';
 import 'package:vaint_service/src/business.dart';
+import 'package:vaint_service/ui_user/user_perfil.dart';
 class DrawerPage extends StatefulWidget {
   static String id = "drawer_options";
   static final String tittle = "Lista de Restaurantes";
@@ -11,11 +15,12 @@ class DrawerPage extends StatefulWidget {
 }
 
 class __DrawerPageState extends State<DrawerPage> {
+  Home home = Home();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BusinessPage(),//RestaurantGrid(),
-        appBar: AppBar(title: Text("Lista de Restaurantes",
+      body: BusinessPage(),
+        appBar: AppBar(title: Text("Inicio",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -50,7 +55,9 @@ class __DrawerPageState extends State<DrawerPage> {
                 ),
                 leading: Icon(Icons.person),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ProfileUser()),
+                    );
                 },
               ),
               SizedBox(height: 15.0),
@@ -63,7 +70,9 @@ class __DrawerPageState extends State<DrawerPage> {
                 ),
                 leading: Icon(Icons.admin_panel_settings),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => PreferencesUser()),
+                  );
                 },
               ),
               SizedBox(height: 15.0),
@@ -76,20 +85,22 @@ class __DrawerPageState extends State<DrawerPage> {
                 ),
                 leading: Icon(Icons.info),
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => AboutApp()),
+                  );
                 },
               ),
               SizedBox(height: 15.0),
               ListTile(
                 leading: Icon(Icons.logout),
-                title: Text("Cerrar Sesión",
+                title: Text("Salir",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black
                     )
                 ),
-                onTap: () {
-                  Navigator.pop(context);
+                onTap: () async{
+                  SystemNavigator.pop();
                 },
               )
             ],
